@@ -1066,6 +1066,40 @@
       </div>
     </footer>
 
+<!-- Mandalay Chatbot -->
+<div id="chatbot" style="position:fixed; bottom:20px; right:20px; width:300px; background:white; border:1px solid #ccc; border-radius:10px; overflow:hidden; z-index:9999;">
+  <div style="background:#ffd83d; padding:10px; font-weight:bold;">
+    Ask about Mandalay 🇲🇲
+  </div>
+  <div id="chatbox" style="height:200px; overflow-y:auto; padding:10px; font-size:14px;"></div>
+  <div style="display:flex; border-top:1px solid #ccc;">
+    <input id="userInput" type="text" placeholder="Ask about Mandalay..." style="flex:1; padding:8px; border:none; outline:none;">
+    <button onclick="sendMessage()" style="padding:8px; background:#ffd83d; border:none;">Send</button>
+  </div>
+</div>
+
+<script>
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chatbox = document.getElementById("chatbox");
+  const userText = input.value;
+  if (!userText) return;
+
+  chatbox.innerHTML += `<div><b>You:</b> ${userText}</div>`;
+  input.value = "";
+
+  const response = await fetch("http://127.0.0.1:5000/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userText})
+  });
+
+  const data = await response.json();
+  chatbox.innerHTML += `<div><b>Bot:</b> ${data.reply}</div>`;
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
+</script>
+    <!-- Auto Scroll -->
     <script>
       (() => {
         const scroller = document.querySelector('[data-autoscroll="must-visit"]');
