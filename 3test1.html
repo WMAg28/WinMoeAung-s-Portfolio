@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WIN MOE AUNG | AI &amp; Computer Science Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2D5A61",
+                        "background-light": "#fcfcfc",
+                        "background-dark": "#101722",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "sans": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light text-slate-900 font-display dark:bg-background-dark dark:text-slate-100">
+  <header class="sticky top-0 left-0 right-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+        <span class="text-primary font-bold tracking-tighter text-xl">
+          WIN MOE AUNG
+        </span>
+        <div class="flex items-center gap-4">
+          <!-- dark_mode_toggle -->
+          <button
+            id="themeToggle"
+            class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-100 bg-white/70 dark:bg-slate-900/70 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800 transition-colors"
+            type="button"
+            aria-label="Toggle dark mode"
+          >
+            <span id="themeIcon" class="material-symbols-outlined text-xl">dark_mode</span>
+          </button>
+          <!-- nav_bar -->
+          <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+            <a class="hover:text-primary transition-colors uppercase tracking-widest" href="#about">About</a>
+            <a class="hover:text-primary transition-colors uppercase tracking-widest" href="#projects">Projects</a>
+            <a class="hover:text-primary transition-colors uppercase tracking-widest" href="#contact">Contact</a>
+          </nav>
+          <!-- hidden_button -->
+          <div class="relative md:hidden">
+            <button id="menuBtn" class="text-slate-900 dark:text-slate-100 flex items-center justify-center">
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+            <div
+              id="mobileMenu"
+              class="hidden absolute right-0 mt-2 w-48 bg-slate-100 dark:bg-slate-900 p-4 shadow-md z-50 flex flex-col gap-4 rounded-lg border border-slate-200 dark:border-slate-700 transition-all duration-200"
+            >
+              <a class="hover:text-primary transition-colors uppercase tracking-widest text-sm" href="#about">About</a>
+              <a class="hover:text-primary transition-colors uppercase tracking-widest text-sm" href="#projects">Projects</a>
+              <a class="hover:text-primary transition-colors uppercase tracking-widest text-sm" href="#contact">Contact</a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </header>
+<main class="pt-32 pb-20">
+
+  <section class="max-w-5xl mx-auto px-6 mb-24">
+  <div class="max-w-3xl">
+    <h1 class="text-6xl md:text-8xl font-black text-slate-900 dark:text-slate-50 tracking-tight mb-6">WIN MOE AUNG</h1>
+    <p class="text-xl md:text-2xl text-slate-500 dark:text-slate-300 font-light leading-relaxed mb-8">
+                        Computer Science Student | Exploring Artificial Intelligence Through Logic and Code
+    </p>
+    <p class="text-lg text-slate-700 dark:text-slate-200 leading-relaxed mb-10 max-w-2xl">
+                        A mission-driven developer focused on analytical thinking, complex systems, and the future of AI architecture. I build with a focus on precision, clarity, and foundational logic.
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a class="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-medium rounded-lg hover:opacity-90 transition-opacity" href="#projects">
+                              View Projects
+      </a>
+      <a class="inline-flex items-center justify-center px-8 py-3 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-100 font-medium rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#contact">
+                            Contact
+      </a>
+    </div>
+  </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 py-20 border-t border-slate-100 dark:border-slate-800" id="about">
+    <div class="grid md:grid-cols-12 gap-12">
+      <div class="md:col-span-4">
+        <h2 class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">About</h2>
+        <p class="text-slate-400 dark:text-slate-300 text-sm italic">Structured thinking meets creative execution.</p>
+      </div>
+      <div class="md:col-span-8">
+        <div class="prose prose-slate max-w-none dark:prose-invert">
+          <p class="text-lg text-slate-700 dark:text-slate-200 leading-relaxed mb-8">
+                                      My approach to computer science is rooted in the belief that complex systems are best understood through their fundamental building blocks. I am fascinated by how logical structures can simulate intelligence and how clean code translates to powerful, scalable AI architecture.
+          </p>
+        </div>
+        <div class="mt-8">
+          <h3 class="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-100 mb-6">Core Competencies</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">HTML</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">CSS</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">JavaScript</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">Python</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">Mathematical Reasoning</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">Algorithmic Thinking</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">Linear Algebra</span>
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-200 text-xs font-semibold rounded uppercase tracking-wider border border-slate-200 dark:border-slate-700">Probability</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 py-20 border-t border-slate-100 dark:border-slate-800" id="projects">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">Selected Work</h2>
+        <h3 class="text-3xl font-bold text-slate-900 dark:text-slate-50">Recent Projects</h3>
+      </div>
+      <p class="text-slate-500 dark:text-slate-300 max-w-xs text-sm">Focusing on implementation details and logic handling.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Rock Paper Scissors -->
+
+      <div class="group border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900 hover:border-primary/40 transition-all">
+      <div class="h-48 bg-slate-50 dark:bg-slate-800 relative overflow-hidden">
+        <img
+          src="./photo/rock-paper-scissors/cover_photo.jpg"
+          alt="Rock Paper Scissors project cover"
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      </div>
+        <div class="p-6">
+          <div class="flex gap-2 mb-3">
+            <span class="text-[10px] font-bold text-primary tracking-widest uppercase">JS</span>
+            <span class="text-[10px] font-bold text-primary tracking-widest uppercase">CSS</span>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-slate-50 mb-2">Rock Paper Scissors</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">A focused study on game logic, state management, and event-driven programming.</p>
+          <a class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-primary gap-1" href="./rock-paper-scissors/rock-paper-scissors.html">
+                      Explore Code <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- About My Hometown -->
+
+      <div class="group border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900 hover:border-primary/40 transition-all">
+     <div class="h-48 bg-slate-50 dark:bg-slate-800 relative overflow-hidden">
+        <img
+          src="./photo/Home_Town/Cover.jpg"
+          alt="Hometown cover"
+          class="w-full h-full object-cover"
+        />          <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex gap-2 mb-3">
+            <span class="text-[10px] font-bold text-primary tracking-widest uppercase">HTML</span>
+            <span class="text-[10px] font-bold text-primary tracking-widest uppercase">CSS</span>
+            <span class="text-[10px] font-bold text-primary tracking-widest uppercase">JS</span>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-slate-50 mb-2">About My Hometown</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">Prioritizing semantic structure and accessible web design for local narratives.</p>
+          <a class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-primary gap-1" href="#">
+                          Explore Code <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+
+
+      <div class="group border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-white dark:bg-slate-900 hover:border-primary/40 transition-all">
+        <div class="h-48 bg-slate-50 dark:bg-slate-800 relative overflow-hidden">
+          <div class="absolute inset-0 flex items-center justify-center text-slate-200">
+            <span class="material-symbols-outlined text-6xl">neurology</span>
+          </div>
+          <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div class="p-6">
+          <div class="flex gap-2 mb-3">
+            <span class="text-[10px] font-bold text-primary tracking-widest uppercase">Python</span>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-slate-50 mb-2">AI Logic Playground</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">Exploring search algorithms and simulation environments using Python.</p>
+          <a class="inline-flex items-center text-xs font-bold uppercase tracking-widest text-primary gap-1" href="#">
+                       Explore Code <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 py-20 border-t border-slate-100 dark:border-slate-800">
+    <div class="bg-slate-900 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden">
+      <div class="relative z-10 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">Focus Areas</h2>
+          <h3 class="text-3xl font-bold mb-6">What I’m Exploring</h3>
+          <p class="text-slate-400 leading-relaxed mb-6">
+                                      My current curriculum and self-study are centered on the intersection of theoretical logic and applied machine learning.
+                                  </p>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">check_circle</span>
+              <div>
+                <p class="font-bold text-slate-100">Python for AI</p>
+                <p class="text-sm text-slate-400">Leveraging libraries for data analysis and predictive modeling.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">check_circle</span>
+              <div>
+                <p class="font-bold text-slate-100">Advanced Algorithms</p>
+                <p class="text-sm text-slate-400">Optimizing computational complexity in complex search spaces.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined text-primary">check_circle</span>
+              <div>
+                <p class="font-bold text-slate-100">Machine Learning Systems</p>
+                <p class="text-sm text-slate-400">Designing the infrastructure that supports intelligent decision-making.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="hidden md:block">
+          <div class="aspect-square bg-white/5 rounded-full flex items-center justify-center p-12">
+            <div class="w-full h-full border border-white/10 rounded-full flex items-center justify-center animate-pulse">
+              <div class="w-2/3 h-2/3 border border-white/20 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-4xl text-primary">memory</span>
+            </div>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-6 py-20 border-t border-slate-100 dark:border-slate-800 text-center" id="contact">
+    <h2 class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-4">Connect</h2>
+    <h3 class="text-3xl font-bold text-slate-900 dark:text-slate-50 mb-8 tracking-tight">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</h3>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+      <a class="flex items-center gap-3 text-lg font-medium text-slate-700 dark:text-slate-100 hover:text-primary transition-colors" href="mailto:alex@example.com">
+        <span class="material-symbols-outlined">mail</span>
+                            winmoeaung518@gmail.com
+      </a>
+      <a class="flex items-center gap-3 text-lg font-medium text-slate-700 dark:text-slate-100 hover:text-primary transition-colors" href="https://github.com/WMAg28">
+        <span class="material-symbols-outlined">link</span>
+                          https://github.com/WMAg28
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="border-t border-slate-100 dark:border-slate-800 py-12 bg-white dark:bg-slate-900">
+  <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="text-slate-400 text-sm font-medium tracking-wide">
+                    Built with intention and clarity.
+    </div>
+    <div class="text-slate-300 text-xs font-medium uppercase tracking-[0.3em]">
+                    Win Moe Aung
+    </div>
+  </div>
+</footer>
+
+<!-- Script -->
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+const htmlEl = document.documentElement;
+
+menuBtn.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
+});
+
+// Close when a mobile link is clicked
+mobileMenu.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    mobileMenu.classList.add("hidden");
+  });
+});
+
+// Initialize theme icon based on current mode
+if (htmlEl.classList.contains("dark")) {
+  themeIcon.textContent = "light_mode";
+} else {
+  themeIcon.textContent = "dark_mode";
+}
+
+// Toggle dark mode
+themeToggle.addEventListener("click", () => {
+  const isDark = htmlEl.classList.toggle("dark");
+  if (isDark) {
+    htmlEl.classList.remove("light");
+    themeIcon.textContent = "light_mode";
+  } else {
+    htmlEl.classList.add("light");
+    themeIcon.textContent = "dark_mode";
+  }
+});
+</script>
+</body></html>

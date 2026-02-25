@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mandalay Tourism - Must-Visit &amp; Food</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ffd83d",
+              "primary-dark": "#e5c02b",
+              secondary: "#a18e45",
+              "background-light": "#f8f8f5",
+              "background-dark": "#231f0f",
+              "surface-light": "#ffffff",
+              "surface-dark": "#2d2a1d",
+              "text-main": "#1d190c",
+              "text-muted": "#5c5438",
+              "accent-turquoise": "#40e0d0",
+              "accent-coral": "#ff7f50",
+            },
+            fontFamily: {
+              display: ["Plus Jakarta Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "1rem",
+              lg: "1.5rem",
+              xl: "2rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+      }
+      .food-card {
+        position: relative;
+        perspective: 1200px;
+        min-height: 460px;
+      }
+      .food-card-inner {
+        position: absolute;
+        inset: 0;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+      }
+      .food-card.is-flipped .food-card-inner {
+        transform: rotateY(180deg);
+      }
+      .food-card-face {
+        position: absolute;
+        inset: 0;
+        backface-visibility: hidden;
+      }
+      .food-card-back {
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display min-h-screen flex flex-col overflow-x-hidden"
+  >
+    <!-- Navbar -->
+    <header
+      class="sticky top-0 z-50 w-full border-b border-secondary/20 bg-background-light/95 backdrop-blur dark:bg-background-dark/95"
+    >
+      <div
+        class="mx-auto flex h-16 max-w-[960px] items-center justify-between px-4 sm:px-6 lg:px-8"
+      >
+        <div class="flex items-center gap-8">
+          <div class="flex items-center gap-3 text-text-main dark:text-white">
+            <span class="material-symbols-outlined text-primary text-3xl">
+              temple_buddhist
+            </span>
+            <h2 class="text-lg font-bold leading-tight tracking-tight">
+              Mandalay Guide
+            </h2>
+          </div>
+          <nav class="hidden md:flex items-center gap-6"></nav>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="hidden sm:flex relative items-center">
+            <span
+              class="material-symbols-outlined absolute left-3 text-secondary dark:text-gray-400 text-xl"
+            >
+              search
+            </span>
+            <input
+              type="text"
+              placeholder="Search"
+              class="h-10 rounded-full border-none bg-surface-light dark:bg-surface-dark py-2 pl-10 pr-4 text-sm text-text-main placeholder-secondary focus:ring-2 focus:ring-primary shadow-sm w-48 lg:w-64 transition-all"
+            />
+          </div>
+          <button
+            class="h-10 rounded-full bg-primary px-6 text-sm font-bold text-text-main transition-transform hover:scale-105 active:scale-95 shadow-md shadow-primary/20"
+          >
+            Sign In
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow">
+      <div class="mx-auto flex max-w-[960px] flex-col px-4 py-8 sm:px-6 lg:px-8" >
+        <!-- Hero / Intro Context (Optional Visual Context) -->
+      <div class="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen mb-10">
+        <div class="relative h-64 md:h-80 w-screen overflow-hidden shadow-lg">
+          <div
+            class="absolute inset-0 bg-cover bg-center"
+            data-alt="Mandalay scenic sunset view with pagodas"
+            style="background-image: url('./photo/Home_Town/Mandalay_cover.jpg');"
+          ></div>
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-8"
+          >
+            <h1 class="text-white text-3xl md:text-5xl font-bold mb-2">
+              Explore Mandalay
+            </h1>
+            <p class="text-white/90 text-lg max-w-xl">
+              Discover the cultural heart of Myanmar through its ancient
+              capitals, vibrant markets, and rich traditions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+        <!-- Must-Visit Places Section -->
+        <section class="mb-12">
+            <h2
+              class="text-2xl md:text-3xl font-bold tracking-tight text-text-main dark:text-white mb-5"
+            >
+              Must-Visit Places
+            </h2>
+
+          <!-- Horizontal scroll on all screen sizes (same style as Popular Foods) -->
+          <div
+            data-autoscroll="must-visit"
+            tabindex="0"
+            aria-label="Must-Visit Places carousel"
+            class="overflow-x-auto pb-6 no-scrollbar"
+          >
+            <div data-autoscroll-track class="flex gap-5 w-max">
+            <!-- Card 1 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 flex flex-col rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 group"
+            >
+              <div class="aspect-square w-full overflow-hidden">
+                <div
+                  class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                  data-alt="Mandalay Hill"
+                  style="background-image: url('./photo/Home_Town/Mandalay_Hill.avif');"
+                ></div>
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <h3
+                  class="text-base md:text-lg font-bold text-text-main dark:text-white mb-1"
+                >
+                  Mandalay Hill
+                </h3>
+                <p class="text-xs md:text-sm text-secondary dark:text-gray-400 mb-2">
+                  Panoramic views of the city and Irrawaddy River, especially at
+                  sunset.
+                </p>
+                <div
+                  class="mt-auto flex items-center gap-1 text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider"
+                >
+                  <span class="material-symbols-outlined text-sm md:text-base">
+                    landscape
+                  </span>
+                  <span>Scenic View</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 flex flex-col rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 group"
+            >
+              <div class="aspect-square w-full overflow-hidden">
+                <div
+                  class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                  data-alt="Kuthodaw Pagoda"
+                  style="background-image: url('./photo/Home_Town/Kuthodaw_Pagoda.jpg');"
+                ></div>
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <h3
+                  class="text-base md:text-lg font-bold text-text-main dark:text-white mb-1"
+                >
+                  Kuthodaw Pagoda
+                </h3>
+                <p class="text-xs md:text-sm text-secondary dark:text-gray-400 mb-2">
+                  Home to the world's largest book, carved on 729 marble slabs.
+                </p>
+                <div
+                  class="mt-auto flex items-center gap-1 text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider"
+                >
+                  <span class="material-symbols-outlined text-sm md:text-base">
+                    menu_book
+                  </span>
+                  <span>Heritage</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 flex flex-col rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 group"
+            >
+              <div class="aspect-square w-full overflow-hidden">
+                <div
+                  class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                  data-alt="U Bein Bridge"
+                  style="background-image: url('./photo/Home_Town/U_Bein_Bridge.jpg');"
+                ></div>
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <h3
+                  class="text-base md:text-lg font-bold text-text-main dark:text-white mb-1"
+                >
+                  U Bein Bridge
+                </h3>
+                <p class="text-xs md:text-sm text-secondary dark:text-gray-400 mb-2">
+                  The world's oldest and longest teakwood bridge, best visited at dusk.
+                </p>
+                <div
+                  class="mt-auto flex items-center gap-1 text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider"
+                >
+                  <span class="material-symbols-outlined text-sm md:text-base">
+                    architecture
+                  </span>
+                  <span>Landmark</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 flex flex-col rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 group"
+            >
+              <div class="aspect-square w-full overflow-hidden">
+                <div
+                  class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                  data-alt="Jade Market"
+                  style="background-image: url('./photo/Home_Town/Jade_market.jpg');"
+                ></div>
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <h3
+                  class="text-base md:text-lg font-bold text-text-main dark:text-white mb-1"
+                >
+                  Jade Market
+                </h3>
+                <p class="text-xs md:text-sm text-secondary dark:text-gray-400 mb-2">
+                   Myanmar’s premier jade trading hub, where dazzling gemstones and intricate carvings are showcased daily.
+
+                </p>
+                <div
+                  class="mt-auto flex items-center gap-1 text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider"
+                >
+                  <span class="material-symbols-outlined text-sm md:text-base">
+                    architecture
+                  </span>
+                  <span>Landmark</span>
+                </div>
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 flex flex-col rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 group"
+            >
+              <div class="aspect-square w-full overflow-hidden">
+                <div
+                  class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                  data-alt="Mahamuni Buddha Temple"
+                  style="background-image: url('./photo/Home_Town/Mahamuni_Buddha_Temple.jpg');"
+                ></div>
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <h3
+                  class="text-base md:text-lg font-bold text-text-main dark:text-white mb-1"
+                >
+                  Mahamuni Buddha Temple
+                </h3>
+                <p class="text-xs md:text-sm text-secondary dark:text-gray-400 mb-2">
+                  Home to the revered Mahamuni Buddha image
+                </p>
+                <div
+                  class="mt-auto flex items-center gap-1 text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider"
+                >
+                  <span class="material-symbols-outlined text-sm md:text-base">
+                    menu_book
+                  </span>
+                  <span>Heritage</span>
+                </div>
+              </div>
+            </div>
+            <!-- Card 6 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 flex flex-col rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 group"
+            >
+              <div class="aspect-square w-full overflow-hidden">
+                <div
+                  class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                  data-alt="Shwenandaw Monastery"
+                  style="background-image: url('./photo/Home_Town/Shwenandaw_Monastery.jpg');"
+                ></div>
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <h3
+                  class="text-base md:text-lg font-bold text-text-main dark:text-white mb-1"
+                >
+                  Shwenandaw Monastery
+                </h3>
+                <p class="text-xs md:text-sm text-secondary dark:text-gray-400 mb-2">
+                  Known for intricate teak carvings
+                </p>
+                <div
+                  class="mt-auto flex items-center gap-1 text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider"
+                >
+                  <span class="material-symbols-outlined text-sm md:text-base">
+                    menu_book
+                  </span>
+                  <span>Heritage</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 7 -->
+             <div
+              class="snap-center shrink-0 w-72 md:w-80 flex flex-col rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 group"
+            >
+              <div class="aspect-square w-full overflow-hidden">
+                <div
+                  class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                  data-alt="Zay Cho"
+                  style="background-image: url('./photo/Home_Town/Zay_Cho.jpg');"
+                ></div>
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <h3
+                  class="text-base md:text-lg font-bold text-text-main dark:text-white mb-1"
+                >
+                  Zay Cho
+                </h3>
+                <p class="text-xs md:text-sm text-secondary dark:text-gray-400 mb-2">
+                  Mandalay’s largest traditional market, famous for local handicrafts, fresh produce, and vibrant daily life
+                </p>
+                <div
+                  class="mt-auto flex items-center gap-1 text-[10px] md:text-xs font-semibold text-primary uppercase tracking-wider"
+                >
+                  <span class="material-symbols-outlined text-sm md:text-base">
+                    architecture
+                  </span>
+                  <span>Landmark</span>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Popular Foods Section -->
+        <section class="mb-12">
+          <div class="flex items-center gap-2 mb-6">
+            <span class="material-symbols-outlined text-accent-coral text-3xl">
+              restaurant
+            </span>
+            <h2
+              class="text-2xl md:text-3xl font-bold tracking-tight text-accent-coral"
+            >
+              Popular Foods
+            </h2>
+          </div>
+
+          <div
+            class="flex overflow-x-auto pb-6 gap-5 no-scrollbar snap-x snap-mandatory"
+          >
+            <!-- Food Card 1 -->
+            <div
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 food-card"
+            >
+              <div class="food-card-inner">
+                <div class="food-card-face bg-surface-light dark:bg-surface-dark">
+                  <div
+                    class="aspect-square w-full bg-cover bg-center"
+                    data-alt="Traditional Tea Leaf Salad on plate"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByqnFVKSRH_TJ88uLArDUgldI-VrM6O0mChr4MmarKA5cYaQz7Is7ZP1gazlehCpbc_F2ucKmDVSKRkciGonBo_hhFW_nr071RhFmIe7NAdWAeFQmVWeCD9s-fTa4BvLRziUXINe69utZPmDjQ_xAa5HCBZjLRPCS-9luRY9bP8Eee1rGO6ncjMOTwVfoTjzgdJY-Twns0Kf-F7TO34K1h8Xfbi9YO2z7uUXdn2BWK0xj5KA4uUkvOrtFVR2LMeK1aQbpAdRagO5M');"
+                  ></div>
+                  <div class="flex flex-col flex-1 p-5">
+                    <div class="mb-4">
+                      <h3
+                        class="text-xl font-bold text-text-main dark:text-white mb-1"
+                      >
+                        Tea Leaf Salad
+                      </h3>
+                    </div>
+                    <a
+                      href="#"
+                      class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      data-food-flip-toggle
+                    >
+                      <span>Learn More</span>
+                      <span class="material-symbols-outlined text-sm font-bold">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="food-card-face food-card-back bg-surface-light dark:bg-surface-dark flex flex-col p-5"
+                >
+                  <div class="mb-4">
+                    <h3
+                      class="text-xl font-bold text-text-main dark:text-white mb-2"
+                    >
+                      Tea Leaf Salad
+                    </h3>
+                    <p class="text-secondary dark:text-gray-400 text-sm">
+                      Known as 'Laphet Thoke', this fermented tea leaf salad is a
+                      mix of sour, salty, spicy, and crunchy textures.
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                    data-food-flip-toggle
+                  >
+                    <span>Back</span>
+                    <span class="material-symbols-outlined text-sm font-bold">
+                      undo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Food Card 2 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 food-card"
+            >
+              <div class="food-card-inner">
+                <div class="food-card-face bg-surface-light dark:bg-surface-dark">
+                  <div
+                    class="aspect-square w-full bg-cover bg-center"
+                    data-alt="Traditional Tea Leaf Salad on plate"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByqnFVKSRH_TJ88uLArDUgldI-VrM6O0mChr4MmarKA5cYaQz7Is7ZP1gazlehCpbc_F2ucKmDVSKRkciGonBo_hhFW_nr071RhFmIe7NAdWAeFQmVWeCD9s-fTa4BvLRziUXINe69utZPmDjQ_xAa5HCBZjLRPCS-9luRY9bP8Eee1rGO6ncjMOTwVfoTjzgdJY-Twns0Kf-F7TO34K1h8Xfbi9YO2z7uUXdn2BWK0xj5KA4uUkvOrtFVR2LMeK1aQbpAdRagO5M');"
+                  ></div>
+                  <div class="flex flex-col flex-1 p-5">
+                    <div class="mb-4">
+                      <h3
+                        class="text-xl font-bold text-text-main dark:text-white mb-1"
+                      >
+                        Tea Leaf Salad
+                      </h3>
+                    </div>
+                    <a
+                      href="#"
+                      class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      data-food-flip-toggle
+                    >
+                      <span>Learn More</span>
+                      <span class="material-symbols-outlined text-sm font-bold">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="food-card-face food-card-back bg-surface-light dark:bg-surface-dark flex flex-col p-5"
+                >
+                  <div class="mb-4">
+                    <h3
+                      class="text-xl font-bold text-text-main dark:text-white mb-2"
+                    >
+                      Tea Leaf Salad
+                    </h3>
+                    <p class="text-secondary dark:text-gray-400 text-sm">
+                      Known as 'Laphet Thoke', this fermented tea leaf salad is a
+                      mix of sour, salty, spicy, and crunchy textures.
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                    data-food-flip-toggle
+                  >
+                    <span>Back</span>
+                    <span class="material-symbols-outlined text-sm font-bold">
+                      undo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Food Card 3 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 food-card"
+            >
+              <div class="food-card-inner">
+                <div class="food-card-face bg-surface-light dark:bg-surface-dark">
+                  <div
+                    class="aspect-square w-full bg-cover bg-center"
+                    data-alt="Traditional Tea Leaf Salad on plate"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByqnFVKSRH_TJ88uLArDUgldI-VrM6O0mChr4MmarKA5cYaQz7Is7ZP1gazlehCpbc_F2ucKmDVSKRkciGonBo_hhFW_nr071RhFmIe7NAdWAeFQmVWeCD9s-fTa4BvLRziUXINe69utZPmDjQ_xAa5HCBZjLRPCS-9luRY9bP8Eee1rGO6ncjMOTwVfoTjzgdJY-Twns0Kf-F7TO34K1h8Xfbi9YO2z7uUXdn2BWK0xj5KA4uUkvOrtFVR2LMeK1aQbpAdRagO5M');"
+                  ></div>
+                  <div class="flex flex-col flex-1 p-5">
+                    <div class="mb-4">
+                      <h3
+                        class="text-xl font-bold text-text-main dark:text-white mb-1"
+                      >
+                        Tea Leaf Salad
+                      </h3>
+                    </div>
+                    <a
+                      href="#"
+                      class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      data-food-flip-toggle
+                    >
+                      <span>Learn More</span>
+                      <span class="material-symbols-outlined text-sm font-bold">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="food-card-face food-card-back bg-surface-light dark:bg-surface-dark flex flex-col p-5"
+                >
+                  <div class="mb-4">
+                    <h3
+                      class="text-xl font-bold text-text-main dark:text-white mb-2"
+                    >
+                      Tea Leaf Salad
+                    </h3>
+                    <p class="text-secondary dark:text-gray-400 text-sm">
+                      Known as 'Laphet Thoke', this fermented tea leaf salad is a
+                      mix of sour, salty, spicy, and crunchy textures.
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                    data-food-flip-toggle
+                  >
+                    <span>Back</span>
+                    <span class="material-symbols-outlined text-sm font-bold">
+                      undo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Food Card 4 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 food-card"
+            >
+              <div class="food-card-inner">
+                <div class="food-card-face bg-surface-light dark:bg-surface-dark">
+                  <div
+                    class="aspect-square w-full bg-cover bg-center"
+                    data-alt="Traditional Tea Leaf Salad on plate"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByqnFVKSRH_TJ88uLArDUgldI-VrM6O0mChr4MmarKA5cYaQz7Is7ZP1gazlehCpbc_F2ucKmDVSKRkciGonBo_hhFW_nr071RhFmIe7NAdWAeFQmVWeCD9s-fTa4BvLRziUXINe69utZPmDjQ_xAa5HCBZjLRPCS-9luRY9bP8Eee1rGO6ncjMOTwVfoTjzgdJY-Twns0Kf-F7TO34K1h8Xfbi9YO2z7uUXdn2BWK0xj5KA4uUkvOrtFVR2LMeK1aQbpAdRagO5M');"
+                  ></div>
+                  <div class="flex flex-col flex-1 p-5">
+                    <div class="mb-4">
+                      <h3
+                        class="text-xl font-bold text-text-main dark:text-white mb-1"
+                      >
+                        Tea Leaf Salad
+                      </h3>
+                    </div>
+                    <a
+                      href="#"
+                      class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      data-food-flip-toggle
+                    >
+                      <span>Learn More</span>
+                      <span class="material-symbols-outlined text-sm font-bold">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="food-card-face food-card-back bg-surface-light dark:bg-surface-dark flex flex-col p-5"
+                >
+                  <div class="mb-4">
+                    <h3
+                      class="text-xl font-bold text-text-main dark:text-white mb-2"
+                    >
+                      Tea Leaf Salad
+                    </h3>
+                    <p class="text-secondary dark:text-gray-400 text-sm">
+                      Known as 'Laphet Thoke', this fermented tea leaf salad is a
+                      mix of sour, salty, spicy, and crunchy textures.
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                    data-food-flip-toggle
+                  >
+                    <span>Back</span>
+                    <span class="material-symbols-outlined text-sm font-bold">
+                      undo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Food Card 5 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 food-card"
+            >
+              <div class="food-card-inner">
+                <div class="food-card-face bg-surface-light dark:bg-surface-dark">
+                  <div
+                    class="aspect-square w-full bg-cover bg-center"
+                    data-alt="Traditional Tea Leaf Salad on plate"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByqnFVKSRH_TJ88uLArDUgldI-VrM6O0mChr4MmarKA5cYaQz7Is7ZP1gazlehCpbc_F2ucKmDVSKRkciGonBo_hhFW_nr071RhFmIe7NAdWAeFQmVWeCD9s-fTa4BvLRziUXINe69utZPmDjQ_xAa5HCBZjLRPCS-9luRY9bP8Eee1rGO6ncjMOTwVfoTjzgdJY-Twns0Kf-F7TO34K1h8Xfbi9YO2z7uUXdn2BWK0xj5KA4uUkvOrtFVR2LMeK1aQbpAdRagO5M');"
+                  ></div>
+                  <div class="flex flex-col flex-1 p-5">
+                    <div class="mb-4">
+                      <h3
+                        class="text-xl font-bold text-text-main dark:text-white mb-1"
+                      >
+                        Tea Leaf Salad
+                      </h3>
+                    </div>
+                    <a
+                      href="#"
+                      class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      data-food-flip-toggle
+                    >
+                      <span>Learn More</span>
+                      <span class="material-symbols-outlined text-sm font-bold">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="food-card-face food-card-back bg-surface-light dark:bg-surface-dark flex flex-col p-5"
+                >
+                  <div class="mb-4">
+                    <h3
+                      class="text-xl font-bold text-text-main dark:text-white mb-2"
+                    >
+                      Tea Leaf Salad
+                    </h3>
+                    <p class="text-secondary dark:text-gray-400 text-sm">
+                      Known as 'Laphet Thoke', this fermented tea leaf salad is a
+                      mix of sour, salty, spicy, and crunchy textures.
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                    data-food-flip-toggle
+                  >
+                    <span>Back</span>
+                    <span class="material-symbols-outlined text-sm font-bold">
+                      undo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Food Card 6 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 food-card"
+            >
+              <div class="food-card-inner">
+                <div class="food-card-face bg-surface-light dark:bg-surface-dark">
+                  <div
+                    class="aspect-square w-full bg-cover bg-center"
+                    data-alt="Traditional Tea Leaf Salad on plate"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByqnFVKSRH_TJ88uLArDUgldI-VrM6O0mChr4MmarKA5cYaQz7Is7ZP1gazlehCpbc_F2ucKmDVSKRkciGonBo_hhFW_nr071RhFmIe7NAdWAeFQmVWeCD9s-fTa4BvLRziUXINe69utZPmDjQ_xAa5HCBZjLRPCS-9luRY9bP8Eee1rGO6ncjMOTwVfoTjzgdJY-Twns0Kf-F7TO34K1h8Xfbi9YO2z7uUXdn2BWK0xj5KA4uUkvOrtFVR2LMeK1aQbpAdRagO5M');"
+                  ></div>
+                  <div class="flex flex-col flex-1 p-5">
+                    <div class="mb-4">
+                      <h3
+                        class="text-xl font-bold text-text-main dark:text-white mb-1"
+                      >
+                        Tea Leaf Salad
+                      </h3>
+                    </div>
+                    <a
+                      href="#"
+                      class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      data-food-flip-toggle
+                    >
+                      <span>Learn More</span>
+                      <span class="material-symbols-outlined text-sm font-bold">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="food-card-face food-card-back bg-surface-light dark:bg-surface-dark flex flex-col p-5"
+                >
+                  <div class="mb-4">
+                    <h3
+                      class="text-xl font-bold text-text-main dark:text-white mb-2"
+                    >
+                      Tea Leaf Salad
+                    </h3>
+                    <p class="text-secondary dark:text-gray-400 text-sm">
+                      Known as 'Laphet Thoke', this fermented tea leaf salad is a
+                      mix of sour, salty, spicy, and crunchy textures.
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                    data-food-flip-toggle
+                  >
+                    <span>Back</span>
+                    <span class="material-symbols-outlined text-sm font-bold">
+                      undo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Food Card 7 -->
+            <div
+              class="snap-center shrink-0 w-72 md:w-80 rounded-xl bg-surface-light dark:bg-surface-dark shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] overflow-hidden border border-secondary/10 food-card"
+            >
+              <div class="food-card-inner">
+                <div class="food-card-face bg-surface-light dark:bg-surface-dark">
+                  <div
+                    class="aspect-square w-full bg-cover bg-center"
+                    data-alt="Traditional Tea Leaf Salad on plate"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuByqnFVKSRH_TJ88uLArDUgldI-VrM6O0mChr4MmarKA5cYaQz7Is7ZP1gazlehCpbc_F2ucKmDVSKRkciGonBo_hhFW_nr071RhFmIe7NAdWAeFQmVWeCD9s-fTa4BvLRziUXINe69utZPmDjQ_xAa5HCBZjLRPCS-9luRY9bP8Eee1rGO6ncjMOTwVfoTjzgdJY-Twns0Kf-F7TO34K1h8Xfbi9YO2z7uUXdn2BWK0xj5KA4uUkvOrtFVR2LMeK1aQbpAdRagO5M');"
+                  ></div>
+                  <div class="flex flex-col flex-1 p-5">
+                    <div class="mb-4">
+                      <h3
+                        class="text-xl font-bold text-text-main dark:text-white mb-1"
+                      >
+                        Tea Leaf Salad
+                      </h3>
+                    </div>
+                    <a
+                      href="#"
+                      class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                      data-food-flip-toggle
+                    >
+                      <span>Learn More</span>
+                      <span class="material-symbols-outlined text-sm font-bold">
+                        arrow_forward
+                      </span>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  class="food-card-face food-card-back bg-surface-light dark:bg-surface-dark flex flex-col p-5"
+                >
+                  <div class="mb-4">
+                    <h3
+                      class="text-xl font-bold text-text-main dark:text-white mb-2"
+                    >
+                      Tea Leaf Salad
+                    </h3>
+                    <p class="text-secondary dark:text-gray-400 text-sm">
+                      Known as 'Laphet Thoke', this fermented tea leaf salad is a
+                      mix of sour, salty, spicy, and crunchy textures.
+                    </p>
+                  </div>
+                  <a
+                    href="#"
+                    class="mt-auto w-full py-2.5 rounded-full bg-primary hover:bg-primary-dark text-text-main font-bold text-sm transition-colors flex items-center justify-center gap-2"
+                    data-food-flip-toggle
+                  >
+                    <span>Back</span>
+                    <span class="material-symbols-outlined text-sm font-bold">
+                      undo
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+
+        </section>
+
+              <!-- Weather Section -->
+        <section class="mb-12">
+          <!-- Mobile: compact overlay banner -->
+          <div
+            class="block md:hidden relative overflow-hidden rounded-2xl shadow-md min-h-[190px]"
+          >
+            <!-- Background Photo -->
+            <div
+              class="absolute inset-0 bg-cover bg-center"
+              data-alt="Vibrant tropical sun shining through palm leaves in Mandalay"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaZe6UEBwg4XIw1SnNC2_UdXK30kjWoW3YOBrWD0KZLPZLmGe2ygSvMH5XyOAILjW2DHnIT0pWp7Toh5v5M-94fW5ta7AZgBnpj72uiHJzB2w84-jwQqQGBRWa0VLFQh5lMnpqmNPSSlMXn4TOZc1Qz3exfnhIEyVh5jlmxJD2Udpp72FgdKH308zsGSVhsWVRLyljO7OqYWP6V-w4_rKZhtAMMpVEmgiEDr50AjMNr9ejjnLZ3miHFTHY2tdttmc2ou0EHhOFiO8");'
+            ></div>
+            <!-- Fade overlay: strong on left, transparent on right -->
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"
+            ></div>
+
+            <!-- Content overlay -->
+            <div class="relative flex h-full items-center px-4 py-5">
+              <div class="max-w-md text-white space-y-2.5">
+                <div
+                  class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary"
+                >
+                  <span class="material-symbols-outlined text-sm">
+                    thermostat
+                  </span>
+                  <span>Climate &amp; Seasons</span>
+                </div>
+
+                <div class="flex items-center gap-2.5">
+                  <span class="material-symbols-outlined text-2xl"> sunny </span>
+                  <div>
+                    <h2 class="text-lg font-bold leading-tight mb-0.5">
+                      Mandalay Weather
+                    </h2>
+                    <p class="text-xs text-white/80">
+                      Warm, sunny days most of the year with a short cool season
+                      and a lush green rainy season.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-1.5 text-[10px]">
+                  <span
+                    class="rounded-full border border-white/20 bg-white/10 px-3 py-1 backdrop-blur"
+                    >Cool: Nov–Feb · 21°C avg</span
+                  >
+                  <span
+                    class="rounded-full border border-white/20 bg-white/10 px-3 py-1 backdrop-blur"
+                    >Hot: Mar–May · 35°C+</span
+                  >
+                  <span
+                    class="rounded-full border border-white/20 bg-white/10 px-3 py-1 backdrop-blur"
+                    >Rainy: Jun–Oct · Lush &amp; green</span
+                  >
+                </div>
+
+                <p class="text-[11px] text-white/80">
+                  Around <span class="font-semibold">32°C</span> daytime highs,
+                  <span class="font-semibold">20°C</span> nights, and over
+                  <span class="font-semibold">280 sunny days</span> a year.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- md+ screens: compact two-column layout -->
+          <div
+            class="hidden md:block rounded-2xl overflow-hidden shadow border border-sand-beige"
+          >
+            <div class="flex flex-col lg:flex-row min-h-[190px]">
+              <!-- Left: Visual -->
+              <div class="lg:w-1/2 relative min-h-[190px]">
+                <div
+                  class="absolute inset-0 bg-cover bg-center"
+                  data-alt="Vibrant tropical sun shining through palm leaves in Mandalay"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaZe6UEBwg4XIw1SnNC2_UdXK30kjWoW3YOBrWD0KZLPZLmGe2ygSvMH5XyOAILjW2DHnIT0pWp7Toh5v5M-94fW5ta7AZgBnpj72uiHJzB2w84-jwQqQGBRWa0VLFQh5lMnpqmNPSSlMXn4TOZc1Qz3exfnhIEyVh5jlmxJD2Udpp72FgdKH308zsGSVhsWVRLyljO7OqYWP6V-w4_rKZhtAMMpVEmgiEDr50AjMNr9ejjnLZ3miHFTHY2tdttmc2ou0EHhOFiO8");'
+                ></div>
+                <div
+                  class="absolute inset-0 bg-primary/20 mix-blend-overlay"
+                ></div>
+              </div>
+              <!-- Right: Content -->
+              <div
+                class="lg:w-1/2 bg-sand-beige px-5 py-5 md:px-6 md:py-6 flex flex-col justify-center gap-3.5"
+              >
+                <div class="flex flex-col gap-4">
+                  <div class="flex items-center gap-2 text-sea-blue">
+                    <span class="material-symbols-outlined">thermostat</span>
+                    <span class="font-bold uppercase tracking-wider text-sm"
+                      >Climate &amp; Seasons</span
+                    >
+                  </div>
+                  <h2
+                    class="text-dark-charcoal text-2xl md:text-3xl font-black leading-tight"
+                  >
+                    Mandalay Weather
+                  </h2>
+                  <p class="text-dark-charcoal/80 text-sm leading-relaxed">
+                    Mandalay features a tropical wet and dry climate with three
+                    distinct seasons. Planning your visit around these changes
+                    will ensure the best experience.
+                  </p>
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="flex flex-col gap-2">
+                    <p class="text-sea-blue font-bold">Cool</p>
+                    <p class="text-dark-charcoal text-sm">
+                      Nov - Feb<br /><span class="font-bold">21°C Avg</span>
+                    </p>
+                  </div>
+                  <div
+                    class="flex flex-col gap-2 border-x border-dark-charcoal/10 px-4"
+                  >
+                    <p class="text-primary font-bold">Hot</p>
+                    <p class="text-dark-charcoal text-sm">
+                      Mar - May<br /><span class="font-bold">35°C+</span>
+                    </p>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <p class="text-green-600 font-bold">Rainy</p>
+                    <p class="text-dark-charcoal text-sm">
+                      Jun - Oct<br /><span class="font-bold">Lush &amp; Green</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-wrap gap-2.5 pt-1">
+                  <div
+                    class="flex flex-1 min-w-[120px] flex-col gap-1 rounded-lg p-2.5 bg-white border border-dark-charcoal/5"
+                  >
+                    <p
+                      class="text-dark-charcoal/60 text-xs font-bold uppercase"
+                    >
+                      Avg High
+                    </p>
+                    <p class="text-dark-charcoal text-lg font-black">32°C</p>
+                  </div>
+                  <div
+                    class="flex flex-1 min-w-[120px] flex-col gap-1 rounded-lg p-2.5 bg-white border border-dark-charcoal/5"
+                  >
+                    <p
+                      class="text-dark-charcoal/60 text-xs font-bold uppercase"
+                    >
+                      Avg Low
+                    </p>
+                    <p class="text-dark-charcoal text-lg font-black">20°C</p>
+                  </div>
+                  <div
+                    class="flex flex-1 min-w-[120px] flex-col gap-1 rounded-lg p-2.5 bg-white border border-dark-charcoal/5"
+                  >
+                    <p
+                      class="text-dark-charcoal/60 text-xs font-bold uppercase"
+                    >
+                      Sunny Days
+                    </p>
+                    <p class="text-dark-charcoal text-lg font-black">280+</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- Fun Fact Callout -->
+        <section class="mb-12">
+          <div
+            class="relative overflow-hidden rounded-2xl bg-accent-turquoise p-5 md:p-8 shadow-md"
+          >
+            <!-- Background Decoration -->
+            <div
+              class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/20 blur-3xl"
+            ></div>
+            <div
+              class="absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-white/20 blur-3xl"
+            ></div>
+            <div
+              class="relative flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 z-10"
+            >
+              <div
+                class="flex h-12 w-12 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm shadow-inner border border-white/30"
+              >
+                <span class="material-symbols-outlined text-2xl md:text-4xl">
+                  lightbulb
+                </span>
+              </div>
+              <div class="flex-1">
+                <h3 class="mb-1 text-lg md:text-xl font-bold text-white">
+                  Did You Know?
+                </h3>
+                <p class="text-white/90 text-sm md:text-base leading-relaxed">
+                  Mandalay was the last royal capital of Burma before British
+                  colonial rule. The city layout is based on a grid system,
+                  centered around the majestic Mandalay Palace, a 413-hectare
+                  walled fortress surrounded by a moat.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-surface-light dark:bg-surface-dark border-t border-secondary/10 py-10"
+    >
+      <div
+        class="mx-auto flex max-w-[960px] flex-col items-center justify-between gap-6 px-4 md:flex-row lg:px-8"
+      >
+        <div class="flex items-center gap-3 text-text-main dark:text-white">
+          <span class="material-symbols-outlined text-primary text-2xl">
+            temple_buddhist
+          </span>
+          <span class="text-lg font-bold">Mandalay Guide</span>
+        </div>
+        <p class="text-sm text-secondary dark:text-gray-400">
+          © 2023 Mandalay Tourism Board. All rights reserved.
+        </p>
+        <div class="flex gap-4">
+          <a
+            href="#"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-background-light dark:bg-background-dark text-text-main transition-colors hover:bg-primary hover:text-white"
+          >
+            <span class="material-symbols-outlined text-lg"> public </span>
+          </a>
+          <a
+            href="#"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-background-light dark:bg-background-dark text-text-main transition-colors hover:bg-primary hover:text-white"
+          >
+            <span class="material-symbols-outlined text-lg"> mail </span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (() => {
+        const scroller = document.querySelector('[data-autoscroll="must-visit"]');
+        if (!scroller) return;
+
+        const track = scroller.querySelector("[data-autoscroll-track]");
+        if (!track) return;
+
+        const reduceMotion = window.matchMedia?.(
+          "(prefers-reduced-motion: reduce)",
+        )?.matches;
+        if (reduceMotion) return;
+
+        let paused = false;
+        let lastTs = null;
+        const pxPerSecond = 32;
+        let loopWidth = 0;
+
+        const pause = () => {
+          paused = true;
+          lastTs = null;
+        };
+        const resume = () => {
+          paused = false;
+          lastTs = null;
+        };
+
+        scroller.addEventListener("mouseenter", pause);
+        scroller.addEventListener("mouseleave", resume);
+        scroller.addEventListener("focusin", pause);
+        scroller.addEventListener("focusout", resume);
+        scroller.addEventListener("touchstart", pause, { passive: true });
+        scroller.addEventListener("touchend", resume, { passive: true });
+
+        let resumeTimeout = null;
+        scroller.addEventListener(
+          "wheel",
+          () => {
+            pause();
+            window.clearTimeout(resumeTimeout);
+            resumeTimeout = window.setTimeout(resume, 1500);
+          },
+          { passive: true },
+        );
+
+        const setupLoop = () => {
+          // Remove previous clones (if any)
+          track
+            .querySelectorAll('[data-autoscroll-clone="true"]')
+            .forEach((n) => n.remove());
+
+          const items = Array.from(track.children);
+          if (items.length === 0) return;
+
+          items.forEach((el) => {
+            const clone = el.cloneNode(true);
+            clone.setAttribute("data-autoscroll-clone", "true");
+            clone.setAttribute("aria-hidden", "true");
+            track.appendChild(clone);
+          });
+
+          // After cloning once, the first half is one full loop
+          loopWidth = track.scrollWidth / 2;
+        };
+
+        setupLoop();
+
+        // Keep loopWidth accurate on resize
+        const ro = new ResizeObserver(() => {
+          if (!loopWidth) {
+            setupLoop();
+            return;
+          }
+          const x = scroller.scrollLeft % loopWidth;
+          setupLoop();
+          scroller.scrollLeft = x;
+        });
+        ro.observe(scroller);
+
+        const tick = (ts) => {
+          if (lastTs == null) lastTs = ts;
+          const dt = ts - lastTs;
+          lastTs = ts;
+
+          if (!paused && loopWidth > 1) {
+            const delta = (pxPerSecond * dt) / 1000;
+            scroller.scrollLeft += delta;
+
+            // Seamless wrap
+            if (scroller.scrollLeft >= loopWidth) {
+              scroller.scrollLeft -= loopWidth;
+            }
+          }
+
+          window.requestAnimationFrame(tick);
+        };
+
+        window.requestAnimationFrame(tick);
+      })();
+    </script>
+
+    <script>
+      (() => {
+        const cards = document.querySelectorAll(".food-card");
+        if (!cards.length) return;
+
+        cards.forEach((card) => {
+          const toggles = card.querySelectorAll("[data-food-flip-toggle]");
+          toggles.forEach((btn) => {
+            btn.addEventListener("click", (event) => {
+              event.preventDefault();
+              card.classList.toggle("is-flipped");
+            });
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
