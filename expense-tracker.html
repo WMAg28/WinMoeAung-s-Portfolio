@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Finance Tracker | WIN MOE AUNG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#2D5A61",
+            "bg-light": "#f8f9fa",
+            "bg-dark": "#101722",
+          },
+          fontFamily: {
+            sans: ["DM Sans", "sans-serif"],
+            mono: ["DM Mono", "monospace"],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { font-family: 'DM Sans', sans-serif; }
+    .mono { font-family: 'DM Mono', monospace; }
+    body { transition: background-color 0.3s, color 0.3s; }
+
+    .card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 16px;
+    }
+    .dark .card {
+      background: rgba(22,31,46,0.85);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(45,90,97,0.06);
+      pointer-events: none;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #2D5A61;
+      box-shadow: 0 0 0 3px rgba(45,90,97,0.15);
+    }
+
+    .entry-row { animation: slideIn 0.22s ease; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-primary {
+      background: #2D5A61; color: white;
+      border: none; border-radius: 10px;
+      padding: 11px 20px; font-weight: 600;
+      font-size: 0.875rem; cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s; width: 100%;
+    }
+    .btn-primary:hover  { opacity: 0.88; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-income {
+      background: #16a34a; color: white;
+      border: none; border-radius: 10px;
+      padding: 11px 20px; font-weight: 600;
+      font-size: 0.875rem; cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s; width: 100%;
+    }
+    .btn-income:hover  { opacity: 0.88; }
+    .btn-income:active { transform: scale(0.98); }
+
+    .delete-btn {
+      cursor: pointer; color: #94a3b8;
+      transition: color 0.2s; background: none; border: none;
+      display: flex; align-items: center;
+    }
+    .delete-btn:hover { color: #ef4444; }
+
+    .tag {
+      display: inline-block; padding: 2px 10px;
+      border-radius: 999px; font-size: 0.68rem;
+      font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* Budget bar */
+    .budget-track {
+      width: 100%; height: 14px;
+      background: #e2e8f0; border-radius: 999px; overflow: hidden;
+    }
+    .dark .budget-track { background: #1e293b; }
+    .budget-fill {
+      height: 100%; border-radius: 999px;
+      transition: width 0.55s cubic-bezier(.4,0,.2,1), background 0.3s;
+      position: relative;
+    }
+    .budget-fill::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+      border-radius: 999px;
+    }
+
+    /* Tabs */
+    .tab-btn {
+      flex: 1; padding: 8px 0;
+      font-size: 0.8rem; font-weight: 600;
+      border-radius: 8px; cursor: pointer;
+      border: none; background: transparent;
+      transition: all 0.2s;
+    }
+    .tab-btn.active-expense { background: #2D5A61; color: white; }
+    .tab-btn.active-income  { background: #16a34a; color: white; }
+    .tab-btn:not(.active-expense):not(.active-income) { color: #94a3b8; }
+    .tab-btn:not(.active-expense):not(.active-income):hover { background: rgba(0,0,0,0.05); }
+    .dark .tab-btn:not(.active-expense):not(.active-income):hover { background: rgba(255,255,255,0.05); }
+
+    /* History tabs */
+    .hist-tab {
+      padding: 5px 14px; border-radius: 8px;
+      font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; border: none;
+      background: transparent; color: #94a3b8; transition: all 0.2s;
+    }
+    .hist-tab.active { background: #2D5A61; color: white; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-thumb { background: #2D5A61; border-radius: 10px; }
+
+    .empty-state {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 36px 20px; color: #94a3b8;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-bg-light dark:bg-bg-dark text-slate-800 dark:text-slate-100">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-bg-dark/80 backdrop-blur-md">
+    <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="text-slate-400 hover:text-primary transition-colors flex items-center gap-1 text-sm">
+          <span class="material-symbols-outlined text-base">arrow_back</span>
+          Portfolio
+        </a>
+        <span class="text-slate-200 dark:text-slate-700">|</span>
+        <span class="text-primary font-bold tracking-tight text-sm mono">Finance Tracker</span>
+      </div>
+      <button id="themeToggle" class="w-9 h-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+        <span id="themeIcon" class="material-symbols-outlined" style="font-size:18px">dark_mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-10">
+
+    <!-- Title -->
+    <div class="mb-8">
+      <p class="text-xs font-bold uppercase tracking-[0.2em] text-primary mb-2">Data / Analytics Project</p>
+      <h1 class="text-4xl font-bold text-slate-900 dark:text-slate-50 tracking-tight">Finance Tracker</h1>
+      <p class="text-slate-500 dark:text-slate-400 mt-2 text-sm">Track income, expenses, and stay within budget.</p>
+    </div>
+
+    <!-- ── Budget Bar ─────────────────────────────────── -->
+    <div class="card p-6 mb-6">
+      <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Budget Usage</p>
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span id="barUsedLabel"  class="mono text-xl font-bold text-slate-900 dark:text-slate-50">¥0</span>
+            <span class="text-slate-400 text-sm">spent of</span>
+            <span id="barTotalLabel" class="mono text-xl font-bold text-primary">¥0</span>
+            <span class="text-slate-400 text-sm">income</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <p id="barPctLabel" class="mono text-2xl font-bold text-slate-900 dark:text-slate-50">0%</p>
+          <p id="barBalanceLabel" class="text-xs text-slate-400">Balance: <span class="font-semibold text-green-500">¥0</span></p>
+        </div>
+      </div>
+      <div class="budget-track">
+        <div id="budgetFill" class="budget-fill" style="width:0%;background:#2D5A61"></div>
+      </div>
+      <div class="flex justify-between mt-2 text-xs text-slate-400 font-medium">
+        <span>0%</span>
+        <span id="warningLabel"></span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <!-- ── Stats Row ────────────────────────────────────── -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="card p-5 stat-card relative overflow-hidden">
+        <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Total Income</p>
+        <p id="totalIncome" class="text-2xl font-bold text-green-500 mono">¥0</p>
+      </div>
+      <div class="card p-5 stat-card relative overflow-hidden">
+        <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Total Spent</p>
+        <p id="totalSpent" class="text-2xl font-bold text-red-400 mono">¥0</p>
+      </div>
+      <div class="card p-5 stat-card relative overflow-hidden">
+        <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">Balance</p>
+        <p id="balance" class="text-2xl font-bold mono">¥0</p>
+      </div>
+      <div class="card p-5 stat-card relative overflow-hidden">
+        <p class="text-xs text-slate-400 uppercase tracking-widest mb-1">This Month</p>
+        <p id="monthSpent" class="text-2xl font-bold text-slate-900 dark:text-slate-50 mono">¥0</p>
+      </div>
+    </div>
+
+    <!-- ── Main Grid ─────────────────────────────────────── -->
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <!-- Left col -->
+      <div class="md:col-span-1 flex flex-col gap-6">
+
+        <!-- Form -->
+        <div class="card p-6">
+          <div class="flex gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg mb-5">
+            <button id="tabExpense" class="tab-btn active-expense" onclick="switchTab('expense')">− Expense</button>
+            <button id="tabIncome"  class="tab-btn"                onclick="switchTab('income')">+ Income</button>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div>
+              <label class="text-xs text-slate-400 uppercase tracking-wider mb-1 block">Description</label>
+              <input id="descInput" type="text" placeholder="e.g. Salary / Lunch"
+                class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 placeholder-slate-300 dark:placeholder-slate-600"/>
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 uppercase tracking-wider mb-1 block">Amount (¥)</label>
+              <input id="amountInput" type="number" placeholder="0" min="0"
+                class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100 mono placeholder-slate-300 dark:placeholder-slate-600"/>
+            </div>
+            <div id="categoryWrap">
+              <label class="text-xs text-slate-400 uppercase tracking-wider mb-1 block">Category</label>
+              <select id="categoryInput"
+                class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100">
+                <option value="Food">🍜 Food</option>
+                <option value="Transport">🚃 Transport</option>
+                <option value="Study">📚 Study</option>
+                <option value="Tech">💻 Tech</option>
+                <option value="Health">🏥 Health</option>
+                <option value="Entertainment">🎮 Entertainment</option>
+                <option value="Other">📦 Other</option>
+              </select>
+            </div>
+            <div id="incomeSourceWrap" class="hidden">
+              <label class="text-xs text-slate-400 uppercase tracking-wider mb-1 block">Source</label>
+              <select id="incomeSource"
+                class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100">
+                <option value="Salary">💼 Salary</option>
+                <option value="Freelance">🖥️ Freelance</option>
+                <option value="Part-time">⏱️ Part-time</option>
+                <option value="Transfer">💸 Transfer</option>
+                <option value="Gift">🎁 Gift</option>
+                <option value="Other">📦 Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 uppercase tracking-wider mb-1 block">Date</label>
+              <input id="dateInput" type="date"
+                class="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 text-sm text-slate-800 dark:text-slate-100"/>
+            </div>
+            <button id="submitBtn" class="btn-primary mt-1" onclick="addEntry()">+ Add Expense</button>
+            <p id="formError" class="text-red-400 text-xs text-center hidden">Please fill in all fields correctly.</p>
+          </div>
+        </div>
+
+        <!-- Donut chart -->
+        <div class="card p-6">
+          <h2 class="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-100 mb-4">Spending by Category</h2>
+          <canvas id="categoryChart" height="190"></canvas>
+          <p id="chartEmpty" class="text-center text-slate-400 text-xs py-6 hidden">No expense data yet</p>
+        </div>
+      </div>
+
+      <!-- Right col: History -->
+      <div class="md:col-span-2">
+        <div class="card p-6">
+          <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-slate-100">History</h2>
+            <div class="flex items-center gap-2">
+              <div class="flex gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                <button id="histAll"     class="hist-tab active" onclick="switchHistory('all')">All</button>
+                <button id="histExpense" class="hist-tab"        onclick="switchHistory('expense')">Expenses</button>
+                <button id="histIncome"  class="hist-tab"        onclick="switchHistory('income')">Income</button>
+              </div>
+              <button onclick="clearAll()" class="text-xs text-red-400 hover:text-red-500 transition-colors font-medium">Clear</button>
+            </div>
+          </div>
+          <div id="categoryFilterWrap" class="mb-3">
+            <select id="filterCategory" onchange="renderList()"
+              class="text-xs rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2 py-1.5 text-slate-600 dark:text-slate-300">
+              <option value="All">All Categories</option>
+              <option value="Food">Food</option>
+              <option value="Transport">Transport</option>
+              <option value="Study">Study</option>
+              <option value="Tech">Tech</option>
+              <option value="Health">Health</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div id="entryList" class="flex flex-col gap-2 max-h-[500px] overflow-y-auto pr-1"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-100 dark:border-slate-800 mt-12 py-6 text-center text-xs text-slate-400 mono">
+    WIN MOE AUNG — Finance Tracker · HTML, CSS & JavaScript
+  </footer>
+
+<script>
+  // ── State ─────────────────────────────────────────────────────
+  let entries   = JSON.parse(localStorage.getItem("wma_entries") || "[]");
+  let activeTab = "expense";
+  let histView  = "all";
+  let chart     = null;
+
+  const CAT_COLORS = {
+    Food:          { bg:"#fef3c7", text:"#92400e", dk_bg:"#3d2d00", dk_text:"#fbbf24" },
+    Transport:     { bg:"#dbeafe", text:"#1e40af", dk_bg:"#0f1f40", dk_text:"#60a5fa" },
+    Study:         { bg:"#d1fae5", text:"#065f46", dk_bg:"#012d1e", dk_text:"#34d399" },
+    Tech:          { bg:"#ede9fe", text:"#5b21b6", dk_bg:"#1e0d3a", dk_text:"#a78bfa" },
+    Health:        { bg:"#fee2e2", text:"#991b1b", dk_bg:"#3a0a0a", dk_text:"#f87171" },
+    Entertainment: { bg:"#fce7f3", text:"#9d174d", dk_bg:"#3a0920", dk_text:"#f472b6" },
+    Other:         { bg:"#f1f5f9", text:"#475569", dk_bg:"#1e2530", dk_text:"#94a3b8" },
+    Salary:        { bg:"#dcfce7", text:"#166534", dk_bg:"#052e16", dk_text:"#4ade80" },
+    Freelance:     { bg:"#d1fae5", text:"#065f46", dk_bg:"#012d1e", dk_text:"#34d399" },
+    "Part-time":   { bg:"#e0f2fe", text:"#0c4a6e", dk_bg:"#082f49", dk_text:"#38bdf8" },
+    Transfer:      { bg:"#fef9c3", text:"#713f12", dk_bg:"#2d1a00", dk_text:"#facc15" },
+    Gift:          { bg:"#fce7f3", text:"#9d174d", dk_bg:"#3a0920", dk_text:"#f472b6" },
+  };
+  const CHART_COLORS = ["#2D5A61","#4a8a92","#6bb5bd","#8ecfd6","#b3e4ea","#c8eff4","#e1f7fa"];
+
+  // ── Init ──────────────────────────────────────────────────────
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("dateInput").value = today();
+    render();
+    initTheme();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Enter" && ["INPUT","SELECT"].includes(document.activeElement.tagName)) addEntry();
+  });
+
+  // ── Tab switching ─────────────────────────────────────────────
+  function switchTab(type) {
+    activeTab = type;
+    const isExpense = type === "expense";
+    document.getElementById("tabExpense").className = "tab-btn" + (isExpense ? " active-expense" : "");
+    document.getElementById("tabIncome").className  = "tab-btn" + (!isExpense ? " active-income" : "");
+    document.getElementById("categoryWrap").classList.toggle("hidden", !isExpense);
+    document.getElementById("incomeSourceWrap").classList.toggle("hidden", isExpense);
+    const btn = document.getElementById("submitBtn");
+    btn.textContent = isExpense ? "+ Add Expense" : "+ Add Income";
+    btn.className   = isExpense ? "btn-primary mt-1" : "btn-income mt-1";
+  }
+
+  function switchHistory(view) {
+    histView = view;
+    ["all","expense","income"].forEach(v => {
+      const el = document.getElementById("hist" + v.charAt(0).toUpperCase() + v.slice(1));
+      el.classList.toggle("active", v === view);
+    });
+    document.getElementById("categoryFilterWrap").style.display = view === "income" ? "none" : "";
+    renderList();
+  }
+
+  // ── Add entry ─────────────────────────────────────────────────
+  function addEntry() {
+    const desc   = document.getElementById("descInput").value.trim();
+    const amount = parseFloat(document.getElementById("amountInput").value);
+    const date   = document.getElementById("dateInput").value;
+    const errEl  = document.getElementById("formError");
+
+    if (!desc || isNaN(amount) || amount <= 0 || !date) {
+      errEl.classList.remove("hidden");
+      setTimeout(() => errEl.classList.add("hidden"), 2500);
+      return;
+    }
+
+    const tag = activeTab === "expense"
+      ? document.getElementById("categoryInput").value
+      : document.getElementById("incomeSource").value;
+
+    entries.unshift({ id: Date.now(), type: activeTab, desc, amount, tag, date });
+    save(); render();
+    document.getElementById("descInput").value   = "";
+    document.getElementById("amountInput").value = "";
+    document.getElementById("dateInput").value   = today();
+  }
+
+  function deleteEntry(id) { entries = entries.filter(e => e.id !== id); save(); render(); }
+
+  function clearAll() {
+    if (!entries.length) return;
+    if (confirm("Clear all entries?")) { entries = []; save(); render(); }
+  }
+
+  // ── Render ────────────────────────────────────────────────────
+  function render() { updateStats(); updateBudgetBar(); renderList(); renderChart(); }
+
+  function updateStats() {
+    const inc = sum("income"), exp = sum("expense");
+    const bal = inc - exp;
+    const now = new Date();
+    const monthExp = entries
+      .filter(e => e.type === "expense" && sameMonth(e.date, now))
+      .reduce((s, e) => s + e.amount, 0);
+
+    document.getElementById("totalIncome").textContent = "¥" + fmt(inc);
+    document.getElementById("totalSpent").textContent  = "¥" + fmt(exp);
+    document.getElementById("monthSpent").textContent  = "¥" + fmt(monthExp);
+
+    const balEl = document.getElementById("balance");
+    balEl.textContent = (bal >= 0 ? "¥" : "-¥") + fmt(Math.abs(bal));
+    balEl.className   = "text-2xl font-bold mono " + (bal >= 0 ? "text-green-500" : "text-red-400");
+  }
+
+  function updateBudgetBar() {
+    const income  = sum("income");
+    const expense = sum("expense");
+    const pct     = income > 0 ? Math.min((expense / income) * 100, 100) : 0;
+    const bal     = income - expense;
+
+    document.getElementById("barUsedLabel").textContent  = "¥" + fmt(expense);
+    document.getElementById("barTotalLabel").textContent = "¥" + fmt(income);
+    document.getElementById("barPctLabel").textContent   = Math.round(pct) + "%";
+
+    const balSign = bal >= 0;
+    document.getElementById("barBalanceLabel").innerHTML =
+      `Balance: <span class="font-semibold ${balSign ? "text-green-500" : "text-red-400"}">${balSign ? "¥" : "-¥"}${fmt(Math.abs(bal))}</span>`;
+
+    const fill    = document.getElementById("budgetFill");
+    const warning = document.getElementById("warningLabel");
+
+    let color = "#2D5A61", msg = "";
+    if      (pct >= 100) { color = "#ef4444"; msg = "⚠️ Over budget!"; }
+    else if (pct >=  80) { color = "#f97316"; msg = "⚠️ Almost at limit"; }
+    else if (pct >=  60) { color = "#eab308"; msg = ""; }
+
+    fill.style.width      = pct + "%";
+    fill.style.background = color;
+    warning.textContent   = msg;
+    warning.style.color   = color;
+  }
+
+  function renderList() {
+    const isDark    = document.documentElement.classList.contains("dark");
+    const catFilter = document.getElementById("filterCategory").value;
+    const list      = document.getElementById("entryList");
+
+    let filtered = [...entries];
+    if (histView === "expense") filtered = filtered.filter(e => e.type === "expense");
+    if (histView === "income")  filtered = filtered.filter(e => e.type === "income");
+    if (histView !== "income" && catFilter !== "All")
+      filtered = filtered.filter(e => e.type === "income" || e.tag === catFilter);
+
+    if (!filtered.length) {
+      list.innerHTML = `<div class="empty-state">
+        <span class="material-symbols-outlined text-4xl mb-2" style="color:#cbd5e1">receipt_long</span>
+        <p class="text-sm">No entries here yet.</p>
+      </div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(e => {
+      const isIncome = e.type === "income";
+      const c = CAT_COLORS[e.tag] || CAT_COLORS.Other;
+      const tagBg    = isDark ? c.dk_bg   : c.bg;
+      const tagText  = isDark ? c.dk_text : c.text;
+      const amtColor = isIncome ? "text-green-500" : "text-red-400";
+      const amtSign  = isIncome ? "+" : "−";
+      return `
+      <div class="entry-row flex items-center justify-between gap-3 px-4 py-3 rounded-xl border border-slate-100 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 hover:border-primary/30 transition-all">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap">
+            <p class="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">${escHtml(e.desc)}</p>
+            <span class="tag" style="background:${tagBg};color:${tagText}">${e.tag}</span>
+            ${isIncome ? `<span class="tag" style="background:rgba(22,163,74,0.12);color:#16a34a">income</span>` : ""}
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">${formatDate(e.date)}</p>
+        </div>
+        <div class="flex items-center gap-3 shrink-0">
+          <span class="mono text-base font-bold ${amtColor}">${amtSign}¥${fmt(e.amount)}</span>
+          <button class="delete-btn" onclick="deleteEntry(${e.id})" title="Delete">
+            <span class="material-symbols-outlined" style="font-size:17px">delete</span>
+          </button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  function renderChart() {
+    const totals = {};
+    entries.filter(e => e.type === "expense").forEach(e => {
+      totals[e.tag] = (totals[e.tag] || 0) + e.amount;
+    });
+    const labels = Object.keys(totals);
+    const data   = Object.values(totals);
+    const canvas = document.getElementById("categoryChart");
+    const empty  = document.getElementById("chartEmpty");
+
+    if (!labels.length) {
+      empty.classList.remove("hidden"); canvas.style.display = "none";
+      if (chart) { chart.destroy(); chart = null; }
+      return;
+    }
+    empty.classList.add("hidden"); canvas.style.display = "block";
+    if (chart) chart.destroy();
+
+    const isDark = document.documentElement.classList.contains("dark");
+    chart = new Chart(canvas, {
+      type: "doughnut",
+      data: {
+        labels,
+        datasets: [{ data, backgroundColor: CHART_COLORS.slice(0, labels.length), borderWidth: 0, hoverOffset: 6 }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { color: isDark ? "#94a3b8" : "#64748b", font: { family: "DM Sans", size: 11 }, boxWidth: 10, padding: 10 }
+          },
+          tooltip: { callbacks: { label: ctx => ` ¥${fmt(ctx.parsed)}` } }
+        },
+        cutout: "65%",
+      }
+    });
+  }
+
+  // ── Helpers ───────────────────────────────────────────────────
+  function sum(type)  { return entries.filter(e => e.type === type).reduce((s,e) => s + e.amount, 0); }
+  function save()     { localStorage.setItem("wma_entries", JSON.stringify(entries)); }
+  function fmt(n)     { return Math.round(n).toLocaleString(); }
+  function today()    { return new Date().toISOString().split("T")[0]; }
+  function escHtml(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function sameMonth(dateStr, now) {
+    const d = new Date(dateStr + "T00:00:00");
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  }
+  function formatDate(d) {
+    return new Date(d + "T00:00:00").toLocaleDateString("en-US", { year:"numeric", month:"short", day:"numeric" });
+  }
+
+  // ── Theme ─────────────────────────────────────────────────────
+  function initTheme() {
+    if (localStorage.getItem("wma_theme") === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    }
+    updateThemeIcon();
+  }
+  document.getElementById("themeToggle").addEventListener("click", () => {
+    const isDark = document.documentElement.classList.toggle("dark");
+    if (isDark) document.documentElement.classList.remove("light");
+    else document.documentElement.classList.add("light");
+    localStorage.setItem("wma_theme", isDark ? "dark" : "light");
+    updateThemeIcon(); renderList(); renderChart();
+  });
+  function updateThemeIcon() {
+    document.getElementById("themeIcon").textContent =
+      document.documentElement.classList.contains("dark") ? "light_mode" : "dark_mode";
+  }
+</script>
+</body>
+</html>
