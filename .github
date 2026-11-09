@@ -1,0 +1,37 @@
+name: Update Weather Data
+
+on:
+  schedule:
+    # Runs every 15 minutes. (GitHub Actions free tier limits cron jobs, running every 1 minute is not reliable)
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Allows you to trigger it manually for testing
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pandas requests openpyxl
+
+      - name: Run Weather Collector
+        run: python weather_collector.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          git add live_weather_log.csv
+          # Only commit if there are changes to prevent errors
+          git diff --quiet && git diff --staged --quiet || git commit -m "Automated weather data update"
+          git push
